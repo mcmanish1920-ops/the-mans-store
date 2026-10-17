@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>THE MAN'S | Define Your Style</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #080808;
+      --gold: #d4af37;
+      --white: #ffffff;
+      --gray: #b8b8b8;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      padding: 20px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #292929;
+      position: sticky;
+      top: 0;
+      background: #080808;
+      z-index: 10;
+    }
+
+    .logo {
+      color: var(--gold);
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .cart-button {
+      background: var(--gold);
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 420px;
+      padding: 75px 7%;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, #080808 5%, #080808df 55%, #08080855),
+        url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1400&q=85")
+        center 35% / cover;
+    }
+
+    .hero-content {
+      max-width: 520px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      letter-spacing: 4px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: #ddd;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      padding: 14px 25px;
+      background: var(--gold);
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+
+    .section {
+      padding: 55px 6%;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product {
+      background: #141414;
+      border: 1px solid #292929;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .product img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .product-info {
+      padding: 14px;
+    }
+
+    .product-info h3 {
+      font-size: 15px;
+      margin-bottom: 9px;
+    }
+
+    .price {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 13px;
+    }
+
+    .product select {
+      width: 100%;
+      padding: 10px;
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+      margin-bottom: 10px;
+      border-radius: 3px;
+    }
+
+    .add-button {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .add-button:hover {
+      background: var(--gold);
+      color: black;
+    }
+
+    .benefits {
+      background: #121212;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      text-align: center;
+      padding: 35px 6%;
+    }
+
+    .benefits h3 {
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .benefits p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 30px 6%;
+      text-align: center;
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 2;
+      border-top: 1px solid #292929;
+    }
+
+    footer strong {
+      color: var(--gold);
+    }
+
+    .cart-panel {
+      position: fixed;
+      inset: 0;
+      background: #000b;
+      z-index: 30;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .cart-panel.open {
+      display: flex;
+    }
+
+    .cart-content {
+      background: #171717;
+      border: 1px solid var(--gold);
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 6px;
+    }
+
+    .cart-title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .close-button {
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    #cart-items {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .cart-row {
+      padding: 12px 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .remove-button {
+      background: transparent;
+      color: #ff8888;
+      border: none;
+      padding: 5px 0;
+      cursor: pointer;
+    }
+
+    .total {
+      color: var(--gold);
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .checkout-form input,
+    .checkout-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #080808;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 3px;
+      font: inherit;
+    }
+
+    .checkout-form textarea {
+      resize: vertical;
+      min-height: 75px;
+    }
+
+    .checkout-form button {
+      width: 100%;
+      padding: 13px;
+      background: var(--gold);
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .notice {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 700px) {
+      .hero {
+        min-height: 550px;
+      }
+
+      .products {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .benefits {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">THE MAN'S<span>®</span></div>
+  <button class="cart-button" onclick="openCart()">
+    BAG (<span id="cart-count">0</span>)
+  </button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">THE NEW STANDARD</div>
+      <h1>DEFINE<br>YOUR <span>STYLE.</span></h1>
+      <p>
+        Confidence in every thread. Discover modern men's
+        essentials designed for your everyday style.
+      </p>
+      <a href="#shop" class="primary-button">EXPLORE COLLECTION</a>
+    </div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="section-heading">
+      <h2>THE COLLECTION</h2>
+      <p>Everyday essentials. Elevated style.</p>
+    </div>
+
+    <div class="products" id="products"></div>
+  </section>
+
+  <section class="benefits">
+    <div>
+      <h3>PREMIUM STYLE</h3>
+      <p>Modern looks for everyday confidence.</p>
+    </div>
+    <div>
+      <h3>YOUR FIT</h3>
+      <p>Choose your preferred size and style.</p>
+    </div>
+    <div>
+      <h3>SHOP WITH CARE</h3>
+      <p>Product and delivery details confirmed before ordering.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>THE MAN'S</strong><br>
+  DEFINE YOUR STYLE.<br>
+  © <span id="year"></span> THE MAN'S. All rights reserved.
+</footer>
+
+<div class="cart-panel" id="cart-panel" onclick="outsideClose(event)">
+  <div class="cart-content">
+    <div class="cart-title">
+      <h2>YOUR BAG</h2>
+      <button class="close-button" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cart-items">Your bag is empty.</div>
+    <div class="total">Total: ₹<span id="cart-total">0</span></div>
+
+    <form class="checkout-form" id="checkout-form">
+      <input id="customer-name" placeholder="Full name" required>
+      <input id="customer-phone" type="tel"
+        inputmode="numeric" pattern="[0-9]{10}"
+        placeholder="10-digit mobile number" required>
+      <textarea id="customer-address"
+        placeholder="Full delivery address" required></textarea>
+
+      <button type="submit">CONTINUE ORDER</button>
+      <p class="notice">
+        Demo checkout only. No payment is collected and no order is
+        sent to a supplier. Connect a secure order system before launch.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  const products = [
+    {
+      id: 1,
+      name: "Essential Black Tee",
+      price: 599,
+      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 2,
+      name: "Classic White Tee",
+      price: 499,
+      image: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 3,
+      name: "Urban Oversized Tee",
+      price: 699,
+      image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 4,
+      name: "Everyday Neutral Tee",
+      price: 599,
+      image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=600&q=80"
+    }
+  ];
+
+  let cart = [];
+
+  function renderProducts() {
+    document.getElementById("products").innerHTML =
+      products.map(product => `
+        <article class="product">
+          <img
+            src="${product.image}"
+            alt="${product.name}"
+            loading="lazy"
+          >
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <div class="price">₹${product.price}</div>
+
+            <select id="size-${product.id}" aria-label="Choose size">
+              <option value="S">Size S</option>
+              <option value="M" selected>Size M</option>
+              <option value="L">Size L</option>
+              <option value="XL">Size XL</option>
+              <option value="XXL">Size XXL</option>
+            </select>
+
+            <button class="add-button"
+              onclick="addToCart(${product.id})">
+              ADD TO BAG
+            </button>
+          </div>
+        </article>
+      `).join("");
+  }
+
+  function addToCart(id) {
+    const product = products.find(item => item.id === id);
+    const size = document.getElementById("size-" + id).value;
+
+    const existing = cart.find(
+      item => item.id === id && item.size === size
+    );
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ ...product, size, quantity: 1 });
+    }
+
+    renderCart();
+    document.getElementById("cart-count").textContent =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const button = document.querySelector(
+      `button[onclick="addToCart(${id})"]`
+    );
+
+    if (button) {
+      button.textContent = "ADDED ✓";
+      setTimeout(() => button.textContent = "ADD TO BAG", 1000);
+    }
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+
+    document.getElementById("cart-count").textContent =
+      cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
+  function renderCart() {
+    const container = document.getElementById("cart-items");
+
+    if (cart.length === 0) {
+      container.textContent = "Your bag is empty.";
+    } else {
+      container.innerHTML = cart.map((item, index) => `
+        <div class="cart-row">
+          <strong>${item.name}</strong><br>
+          Size: ${item.size} · Qty: ${item.quantity}<br>
+          ₹${item.price * item.quantity}<br>
+          <button class="remove-button"
+            onclick="removeFromCart(${index})">
+            Remove
+          </button>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("cart-total").textContent =
+      cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+
+  function openCart() {
+    document.getElementById("cart-panel").classList.add("open");
+  }
+
+  function closeCart() {
+    document.getElementById("cart-panel").classList.remove("open");
+  }
+
+  function outsideClose(event) {
+    if (event.target.id === "cart-panel") closeCart();
+  }
+
+  document.getElementById("checkout-form").addEventListener(
+    "submit", function(event) {
+      event.preventDefault();
+
+      if (cart.length === 0) {
+        alert("Please add a product to your bag first.");
+        return;
+      }
+
+      alert(
+        "Your demo checkout is working! Orders are not yet being sent. " +
+        "A secure order system must be connected before accepting customers."
+      );
+    }
+  );
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+  renderProducts();
+</script>
+
+</body>
+  </html>
